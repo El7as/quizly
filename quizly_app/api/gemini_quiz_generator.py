@@ -10,13 +10,15 @@ class GeminiQuizGenerator:
         api_key = os.getenv('GEMINI_API_KEY')
         if not api_key:
             raise ValueError('GEMINI_API_KEY wurde nicht gesetzt oder konnte nicht erkannt werden')
-        genai.configure(api_key=api_key)
-        self.model = genai.GenerativeModel('gemini-1.5-flash')
+        
+        self.client = genai.Client(api_key=api_key)
+        self.model_name = 'gemini-3.5-flash'
 
     def generate_quiz(self, transcript: str):
         prompt = f'''
-        Erstelle ein Quiz mit genau 10 Fragen basierend auf folgendem Transkript:
-
+        Erstelle ein Quiz mit genau 10 Fragen basierend auf folgendem Transkript eines YouTube-Videos.
+        Das Video behandelt ein allgemeines Thema, nicht technische Fehlermeldungen. Ignoriere alle technischen Begriffe oder Log-Ausgaben.
+        Konzentriere dich auf das inhaltliche Thema des Videos.
         ---
         {transcript}
         ---
@@ -38,8 +40,9 @@ class GeminiQuizGenerator:
         '''
 
         try:
-            response = self.model.generate_content(prompt)
+            response = self.client.models.generate_content(model=self.model_name, contents=prompt)
             text = response.text.strip()
+
         except Exception as e:
             raise Exception(f'Fehler bei der Gemini API: {str(e)}')
         

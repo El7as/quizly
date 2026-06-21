@@ -33,11 +33,17 @@ Clean, modular architecture
 ## Requirements
 
     - Python 3.10+
+
     - Django 5+
+
     - Django REST Framework
+
     - yt-dlp
+
     - ffmpeg (must be installed globally)
+
     - Whisper (local)
+
     - Google Gemini API key
 
 Environment Variables
@@ -49,13 +55,19 @@ GEMINI_API_KEY=your_api_key_here
 
 
 ## Installation
+```
 - git clone <your-repo-url>
+```
 - cd project
-
+```
 - python -m venv env
+```
 - source venv/bin/activate  # Windows: venv\Scripts\activate
-
+```
 - pip install -r requirements.txt
+```
 - python manage.py makemigrations
+```
 - python manage.py migrate
+```
 - python manage.py runserver

@@ -70,7 +70,7 @@ class QuizDetailView(APIView):
     permission_classes = [permissions.IsAuthenticated]
 
 
-    def get_object(self, pk, user):
+    def get_object(self, pk):
         try:
             return Quiz.objects.get(pk=pk)
         except Quiz.DoesNotExist:
@@ -78,25 +78,30 @@ class QuizDetailView(APIView):
         
 
     def get(self, request, pk):
-        quiz = self.get_object(pk, request.user)
+        quiz = self.get_object(pk)
 
         if quiz is None:
             return Response({'detail': 'Quiz nicht gefunden'}, status=status.HTTP_404_NOT_FOUND)
 
         if quiz.user != request.user:
             return Response({'detail': 'Keine Berechtigung'}, status=status.HTTP_403_FORBIDDEN)
-        
+
         serializer = QuizListSerializer(quiz)
         return Response(serializer.data, status=status.HTTP_200_OK)
     
 
     def patch(self, request, pk):
-        quiz = self.get_object(pk, request.user)
-        if not quiz:
+        quiz = self.get_object(pk)
+
+        if quiz is None:
             return Response({'detail': 'Quiz nicht gefunden'}, status=status.HTTP_404_NOT_FOUND)
         
+        if quiz.user != request.user:
+            return Response({'detail': 'Keine Berechtigung'}, status=status.HTTP_403_FORBIDDEN)
+
         title = request.data.get('title')
         description = request.data.get('description')
+
         if not title or not description:
             return Response({'detail': 'title und description müssen angegeben werden'}, status=status.HTTP_400_BAD_REQUEST)
         
@@ -108,8 +113,15 @@ class QuizDetailView(APIView):
     
 
     def delete(self, request, pk):
-        quiz = self.get_object(pk, request.user)
-        if not quiz:
+        quiz = self.get_object(pk)
+
+        if quiz is None:
             return Response({'detail': 'Quiz nicht gefunden'}, status=status.HTTP_404_NOT_FOUND)
+        
+        if quiz.user != request.user:
+            return Response({'detail': 'Keine Berechtigung'}, status=status.HTTP_403_FORBIDDEN)
+        
         quiz.delete()
         return Response(status=status.HTTP_200_OK)
+    
+

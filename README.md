@@ -46,7 +46,13 @@ Installation
     cd project
     python -m venv env
     source venv/bin/activate  # Windows: venv\Scripts\activate
+<<<<<<< HEAD
     pip install -r requirements.txt
     python manage.py makemigrations
     python manage.py migrate
     python manage.py runserver
+=======
+    pip install -r 
+
+    
+>>>>>>> 7ca693f1f7739026599b5ba2bdfde72a2c2845e7

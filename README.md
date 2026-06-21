@@ -1,6 +1,9 @@
+# Quizly Backend
+
 Quizly is a Django‑based backend application that automatically generates quizzes from YouTube videos.
 Users authenticate, submit a YouTube URL, and the system extracts the transcript, processes it with Google Gemini, and returns a fully structured quiz with questions, options, and correct answers.
 
+---
 
 ## Features
 
@@ -29,6 +32,7 @@ Clean, modular architecture
     - quizly_app for quiz logic
     - utils for AI and transcript processing
 
+---
 
 ## Requirements
 
@@ -55,26 +59,27 @@ GEMINI_API_KEY=your_api_key_here
 
 
 ## Installation
-```
+
+```bash
 git clone <your-repo-url>
 
-```
+```bash
 cd project
 
-```
+```bash
 python -m venv env
 
-```
+```bash
 source venv/bin/activate  # Windows: venv\Scripts\activate
 
-```
+```bash
 pip install -r requirements.txt
 
-```
+```bash
 python manage.py makemigrations
 
-```
+```bash
 python manage.py migrate
 
-```
+```bash
 python manage.py runserver

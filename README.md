@@ -51,13 +51,35 @@ DEBUG = os.getenv("DEBUG") == "True"
 ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS", "").split(",")
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 ```
+
 ```
 git clone <your-repo-url>
+```
+
+```
 cd project
+```
+
+```
 python -m venv env
+```
+
+```
 source env/bin/activate  # Windows: env\Scripts\activate
+```
+
+```
 pip install -r requirements.txt
+```
+
+```
 python manage.py makemigrations
+```
+
+```
 python manage.py migrate
+```
+
+```
 python manage.py runserver
 ```

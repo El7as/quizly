@@ -2,6 +2,8 @@ from rest_framework import status, permissions
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
+import yt_dlp
+
 
 from ..models import Quiz, Question, Option
 
@@ -47,6 +49,13 @@ class QuizView(APIView):
             return Response({'detail': 'Invalid URL or request data.'}, status=status.HTTP_400_BAD_REQUEST)
         
         try: 
+
+            ydl_opts = {'quiet': True, 'skip_download': True}
+            with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+                info = ydl.extract_info(video_url, download=False)
+                title = info.get('title', 'Automatisch generiertes Quiz')
+                description = info.get('description', 'Erstellt aus YouTube-Video')
+                thumbnail = info.get('thumbnail')
            
             extractor = YouTubeTranscriptExtractor() 
             transcript = extractor.get_transcript(video_url)

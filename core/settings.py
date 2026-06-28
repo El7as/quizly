@@ -34,8 +34,9 @@ ALLOWED_HOSTS = []
 
 GEMINI_API_KEY = os.getenv('GEMINI_API_KEY')
 
-CORS_ALLOWED_ALL_ORIGINS = True
+CORS_ALLOW_ALL_ORIGINS = True
 CORS_ALLOW_CREDENTIALS = True
+
 CORS_ALLOW_HEADERS = [
     'content-type',
     'authorization',

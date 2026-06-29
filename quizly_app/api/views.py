@@ -63,8 +63,7 @@ class QuizView(APIView):
             generator = GeminiQuizGenerator()
             quiz_data = generator.generate_quiz(transcript)
 
-            quiz = Quiz.objects.create(user=request.user, title='Automatisch generiertes Quiz',
-                                       description='Erstellt aus YouTube-Video', url=video_url)
+            quiz = Quiz.objects.create(user=request.user, title=title, description=description, url=video_url)
             
             for q in quiz_data:
                 question = Question.objects.create(quiz=quiz, text=q['question'])
